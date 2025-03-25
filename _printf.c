@@ -1,6 +1,43 @@
 #include "main.h"
 
 /**
+ * print_char- a function for _printf function
+ * @args: is a variable list
+ * Return: 1
+ */
+
+int print_char(va_list args)
+{
+	char c = va_arg(args, int);
+
+	_putchar(c);
+	return (1);
+}
+
+/**
+ * print_string- a function for _printf function
+ * @args: is a variable list
+ * Return: len
+ */
+
+int print_string(va_list args)
+{
+	char *s = va_arg(args, char *);
+	int len = 0;
+
+	if (!s)
+		s = "(null)";
+
+	while (s[len])
+	{
+		_putchar(s[len]);
+		len++;
+	}
+
+	return (len);
+}
+
+/**
  * _printf - a function that produces output according to a format
  * @format: is a character string. The format string is composed of zero or
  * more directives
@@ -13,7 +50,6 @@ int _printf(const char *format, ...)
 {
 	int i = 0, printed_chars = 0;
 	va_list args;
-	int (*func)(va_list);
 
 	if (!format)
 		return (-1);
