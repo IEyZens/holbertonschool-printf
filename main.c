@@ -42,3 +42,8 @@ int main(void)
 	printf("Unknown:[%r]\n");
 	return (0);
 }
+
+unsigned int base_len(unsigned int, int)
+{
+	return 0;
+}
