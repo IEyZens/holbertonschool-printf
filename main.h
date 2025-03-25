@@ -1,26 +1,27 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include <stdio.h>
 #define BUFF_SIZE 1024
 
-#include <unistd.h>
 int _putchar(char c);
 
+#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
 
 /**
  * struct convert- defines a structure of symbol to function
  * @sym: the operator
  * @f: this is function to associated
  */
-struct convert
+
+/* Définition d'un alias pour struct convert */
+typedef struct convert
 {
 	char *sym;
 	int (*f)(va_list);
-};
-/* Définition d'un alias pour struct convert */
-typedef struct convert conver_t;
+} conver_t;
 
 /* Fonctions de support */
 
@@ -36,7 +37,7 @@ int print_char(va_list);
 int print_string(va_list);
 /* Affiché le symbole % */
 int print_percent(va_list);
-/* Affichéun entier signé */
+/* Affiché un entier signé */
 int print_integer(va_list);
 /* Affiché un nombre */
 int print_number(va_list);
@@ -63,6 +64,5 @@ char *rev_string(char *);
 void write_base(char *str);
 /* Copie n octets de str vers dest */
 char *_memcpy(char *dest, char *str, unsigned int n);
-
 
 #endif /* MAIN_H */
