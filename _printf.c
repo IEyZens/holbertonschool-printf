@@ -1,12 +1,11 @@
 #include "main.h"
 
 /**
- * printf - a function that produces output according to a format
+ * _printf - a function that produces output according to a format
  * @format: is a character string. The format string is composed of zero or
  * more directives
- * @is: composed of zero or more directives
  *
- * Returns: the number of characters printed (excluding the null byte used to
+ * Return: the number of characters printed (excluding the null byte used to
  * end output to strings)
  */
 
@@ -14,56 +13,36 @@ int _printf(const char *format, ...)
 {
 	int i = 0, printed_chars = 0;
 	va_list args;
-	char c, *s;
+	int (*func)(va_list);
 
 	if (!format)
 		return (-1);
 
 	va_start(args, format);
+
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			if (!format[i + 1])
-			{
-				va_end(args);
 				return (-1);
-			}
 
 			i++;
 			if (format[i] == 'c')
-			{
-				c = va_arg(args, int);
-				_putchar(c);
-				printed_chars++;
-			}
+				printed_chars += print_char(args);
 			else if (format[i] == 's')
-			{
-				s = va_arg(args, char *);
-				if (!s)
-					s = "(null)";
-				while (*s)
-				{
-					_putchar(*s++);
-					printed_chars++;
-				}
-			}
+				printed_chars = print_string(args);
 			else if (format[i] == '%')
-			{
-				_putchar('%');
-				printed_chars++;
-			}
+				printed_chars += _putchar('%');
 			else
 			{
-				_putchar('%');
-				_putchar(format[i]);
-				printed_chars += 2;
+				printed_chars += _putchar('%');
+				printed_chars += _putchar(format[i]);
 			}
 		}
 		else
 		{
-			_putchar(format[i]);
-			printed_chars++;
+			printed_chars += _putchar(format[i]);
 		}
 		i++;
 	}
