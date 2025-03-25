@@ -1,25 +1,22 @@
 #include "main.h"
 
 /**
- * print_char- a function for _printf function
- * @args: is a variable list
- * Return: 1
+ * print_char - Imprime un caractère
+ * @args: Liste d'arguments
+ * Return: Nombre de caractères imprimés
  */
-
 int print_char(va_list args)
 {
 	char c = va_arg(args, int);
 
-	_putchar(c);
-	return (1);
+	return (_putchar(c));
 }
 
 /**
- * print_string- a function for _printf function
- * @args: is a variable list
- * Return: len
+ * print_string - Imprime une chaîne de caractères
+ * @args: Liste d'arguments
+ * Return: Nombre de caractères imprimés
  */
-
 int print_string(va_list args)
 {
 	char *s = va_arg(args, char *);
@@ -38,14 +35,11 @@ int print_string(va_list args)
 }
 
 /**
- * _printf - a function that produces output according to a format
- * @format: is a character string. The format string is composed of zero or
- * more directives
+ * _printf - Fonction qui produit une sortie selon un format
+ * @format: Chaîne de caractères contenant le format
  *
- * Return: the number of characters printed (excluding the null byte used to
- * end output to strings)
+ * Return: Nombre total de caractères imprimés
  */
-
 int _printf(const char *format, ...)
 {
 	int i = 0, printed_chars = 0;
@@ -60,14 +54,17 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (!format[i + 1])
+			if (format[i + 1] == '\0')
+			{
+				va_end(args);
 				return (-1);
+			}
 
 			i++;
 			if (format[i] == 'c')
 				printed_chars += print_char(args);
 			else if (format[i] == 's')
-				printed_chars = print_string(args);
+				printed_chars += print_string(args);
 			else if (format[i] == '%')
 				printed_chars += _putchar('%');
 			else
