@@ -4,7 +4,7 @@
  * print_char - Imprime un caractère
  * @args: Liste d'arguments
  * Return: Nombre de caractères imprimés
- */
+*/
 int print_char(va_list args)
 {
 	char c = va_arg(args, int);
@@ -35,6 +35,45 @@ int print_string(va_list args)
 }
 
 /**
+ * print_integer - imprimer un entier (décimal)
+ * @args: argument à imprimer
+ * Return: nombre d'arguments imprimés
+ */
+int print_integer(va_list args)
+{
+	int n = va_arg(args, int);
+	int num, last = n % 10, digit, exp = 1;
+	int i = 1;
+
+	if (n < 0)
+	{
+		_putchar('-');
+		n = -n;
+		i++;
+	}
+
+	num = n / 10;
+
+	while (num > 0)
+	{
+		exp *= 10;
+		num /= 10;
+	}
+
+	while (exp > 0)
+	{
+		digit = n / exp;
+		_putchar(digit + '0');
+		n -= digit * exp;
+		exp /= 10;
+		i++;
+	}
+	_putchar(last + '0');
+
+	return (i);
+}
+
+/**
  * _printf - Fonction qui produit une sortie selon un format
  * @format: Chaîne de caractères contenant le format
  *
@@ -45,14 +84,14 @@ int _printf(const char *format, ...)
 	int i = 0, printed_chars = 0;
 	va_list args;
 
-	if (!format)
+	if (!format) /* Vérifier si la chaîne de format est NULL */
 		return (-1);
 
-	va_start(args, format);
+	va_start(args, format); /* Initialiser la liste des arguments variables */
 
-	while (format[i])
+	while (format[i]) /* Parcourir la chaîne de format */
 	{
-		if (format[i] == '%')
+		if (format[i] == '%') /* Détection d'un spécificateur de format */
 		{
 			if (format[i + 1] == '\0')
 			{
@@ -60,7 +99,7 @@ int _printf(const char *format, ...)
 				return (-1);
 			}
 
-			i++;
+			i++; /* Passer au caractère suivant après '%' */
 			if (format[i] == 'c')
 				printed_chars += print_char(args);
 			else if (format[i] == 's')
@@ -73,13 +112,13 @@ int _printf(const char *format, ...)
 				printed_chars += _putchar(format[i]);
 			}
 		}
-		else
+		else /* Caractère normal à afficher directement */
 		{
 			printed_chars += _putchar(format[i]);
 		}
 		i++;
 	}
 
-	va_end(args);
-	return (printed_chars);
+	va_end(args); /* Nettoyer la liste des arguments variables */
+	return (printed_chars); /*Retourner le nombre total de caractères imprimés*/
 }
