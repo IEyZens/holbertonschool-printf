@@ -1,40 +1,6 @@
 #include "main.h"
 
 /**
- * print_char - Imprime un caractère
- * @args: Liste d'arguments
- * Return: Nombre de caractères imprimés
- */
-int print_char(va_list args)
-{
-	char c = va_arg(args, int);
-
-	return (_putchar(c));
-}
-
-/**
- * print_string - Imprime une chaîne de caractères
- * @args: Liste d'arguments
- * Return: Nombre de caractères imprimés
- */
-int print_string(va_list args)
-{
-	char *s = va_arg(args, char *);
-	int len = 0;
-
-	if (!s)
-		s = "(null)";
-
-	while (s[len])
-	{
-		_putchar(s[len]);
-		len++;
-	}
-
-	return (len);
-}
-
-/**
  * _printf - Fonction qui produit une sortie selon un format
  * @format: Chaîne de caractères contenant le format
  *
@@ -49,7 +15,6 @@ int _printf(const char *format, ...)
 		return (-1);
 
 	va_start(args, format);
-
 	while (format[i])
 	{
 		if (format[i] == '%')
@@ -67,6 +32,8 @@ int _printf(const char *format, ...)
 				printed_chars += print_string(args);
 			else if (format[i] == '%')
 				printed_chars += _putchar('%');
+			else if (format[i] == 'd' || format[i] == 'i')
+				printed_chars += print_int(args);
 			else
 			{
 				printed_chars += _putchar('%');
@@ -79,7 +46,6 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
-
 	va_end(args);
 	return (printed_chars);
 }
