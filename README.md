@@ -1,4 +1,3 @@
-
 # README PRINTF
 
 La fonction ```_printf``` affiche une sortie. Elle est similaire à la fonction ```printf``` mais avec spécificateurs limités.
@@ -22,8 +21,8 @@ int main(void)
 	unsigned int ui;
 	void *addr;
 
-	len = _printf("Let's try to printf a simple sentence.\n");
-	len2 = printf("Let's try to printf a simple sentence.\n");
+    len = _printf("Let's try to printf a simple sentence.\n");
+    len2 = printf("Let's try to printf a simple sentence.\n");
     ui = (unsigned int)INT_MAX + 1024;
     addr = (void *)0x7ffe637541f0;
     _printf("Length:[%d, %i]\n", len, len);
@@ -65,6 +64,31 @@ Spécificateurs utilisés :
 %s | Affiche une chaîne de caractères.
 %d ou %i | Affiche un entier signé.
 %% | Affiche le caractère pourcentage (%).
+
+## FLOWCHART
+
+```mermaid
+flowchart TD
+    A[Début] --> B{Format == NULL ?}
+    B --> |Oui| C[ERREUR]
+    B --> |Non| D[Continue]
+    D --> E[Initialisation de va_list et printed_chars]
+    E --> F{Parcours de format de i}
+    F --> G{Format de i est égal à %}
+    G --> H{Format de i + 1 est NULL ?}
+    H --> |Oui| I[ERREUR]
+    H --> |Non| J[Incrémentation de i]
+    J --> K{Format de i est un spécificateur valide ?}
+    K --> L[Si %c alors print_char args]
+    K --> M[Si %s alors print_string args]
+    K --> N[Si %d ou %i alors print_int args]
+    K --> O[Si % alors imprime %]
+    K --> P[Sinon affiche % suivi du caractère non reconnu]
+    J --> Q[Affiche directement format de i]
+    Q --> R[Fin de boucle]
+    R --> S[va_end et retour du nombre total de caractères imprimés]
+    S --> T[Fin]
+```
 
 ## EXEMPLES
 
