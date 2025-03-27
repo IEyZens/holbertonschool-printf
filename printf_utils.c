@@ -68,13 +68,3 @@ int print_int(va_list args)
 
 	return (count);
 }
-
-/**
- * print_dec - function print dec
- * @args: is a variable list
- * Return: print_int(args)
- */
-int print_dec(va_list args)
-{
-	return (print_int(args));
-}
