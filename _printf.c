@@ -1,6 +1,7 @@
 #include "main.h"
 
 /**
+<<<<<<< HEAD
  * print_char - Imprime un caractère
  * @args: Liste d'arguments
  * Return: Nombre de caractères imprimés
@@ -74,6 +75,8 @@ int print_integer(va_list args)
 }
 
 /**
+=======
+>>>>>>> d0d220677153f5b93b73f6ef213930ba03feb7fb
  * _printf - Fonction qui produit une sortie selon un format
  * @format: Chaîne de caractères contenant le format
  *
@@ -87,9 +90,14 @@ int _printf(const char *format, ...)
 	if (!format) /* Vérifier si la chaîne de format est NULL */
 		return (-1);
 
+<<<<<<< HEAD
 	va_start(args, format); /* Initialiser la liste des arguments variables */
 
 	while (format[i]) /* Parcourir la chaîne de format */
+=======
+	va_start(args, format);
+	while (format[i])
+>>>>>>> d0d220677153f5b93b73f6ef213930ba03feb7fb
 	{
 		if (format[i] == '%') /* Détection d'un spécificateur de format */
 		{
@@ -106,6 +114,8 @@ int _printf(const char *format, ...)
 				printed_chars += print_string(args);
 			else if (format[i] == '%')
 				printed_chars += _putchar('%');
+			else if (format[i] == 'd' || format[i] == 'i')
+				printed_chars += print_int(args);
 			else
 			{
 				printed_chars += _putchar('%');
@@ -118,7 +128,12 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
+<<<<<<< HEAD
 
 	va_end(args); /* Nettoyer la liste des arguments variables */
 	return (printed_chars); /*Retourner le nombre total de caractères imprimés*/
+=======
+	va_end(args);
+	return (printed_chars);
+>>>>>>> d0d220677153f5b93b73f6ef213930ba03feb7fb
 }
